@@ -299,11 +299,11 @@ class Snowman extends Component {
         // remove message box 'keypress' event listener
         document.removeEventListener("keypress", this.setUpGame);
         
-        // add game 'keypress' event listener to capture new guesses
-        document.addEventListener("keypress", this.evaluateGuess);
-
         // bring focus to hidden input field to force keyboard to show on mobile
         document.getElementById("inputForMobile").focus();
+        
+        // add game 'keypress' event listener to capture new guesses
+        document.addEventListener("keypress", this.evaluateGuess);
     }
 
     render() {
@@ -356,7 +356,7 @@ class Snowman extends Component {
                             <h2> Current guess: <span className="snowWhite">{ this.state.userGuess }</span> </h2>
                             <h2> Previous guesses: </h2>
                             { pastGuessesJSX }
-                            <input type='text' id='inputForMobile' className='hidden'/>
+                            <input type='text' id='inputForMobile' />
                             {/* <InputForMobile /> */}
                         </div>
                     </div>
