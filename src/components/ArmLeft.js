@@ -1,14 +1,14 @@
 import React from 'react';
 
-class ArmLeft extends React.Component{
-    render(){
+class ArmLeft extends React.Component {
+    render() {
 
         let classList = "arm__left";
-        if(this.props.nWrong > 0){
+        if (this.props.nWrong > 0) {
             classList += " hidden";
         }
 
-        return(
+        return (
             <div className={ classList }></div>            
         );
     }

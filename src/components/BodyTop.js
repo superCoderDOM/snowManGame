@@ -1,14 +1,14 @@
 import React from 'react';
 
-class BodyTop extends React.Component{
-    render(){
+class BodyTop extends React.Component {
+    render() {
 
         let classList = "body body--top";
-        if(this.props.nWrong > 4){
+        if (this.props.nWrong > 4) {
             classList += " hidden";
         }
 
-        return(
+        return (
             <div className={ classList }>
                 <div className="body__scarf"></div>
                 <div className="body__button body__button--top"></div>

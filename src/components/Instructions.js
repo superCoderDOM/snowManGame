@@ -1,18 +1,18 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
 
-class Instructions extends React.Component{
-    constructor(){
+class Instructions extends React.Component {
+    constructor() {
         super();
         this.componentWillMount = this.componentWillMount.bind(this);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.pageHandler('instructions');        
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <Helmet>
                     <title>Snowman | How-To</title>

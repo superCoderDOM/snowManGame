@@ -5,8 +5,8 @@ import GameResults from './GameResults';
 import MessageBox from './MsgBox';
 import ResetButton from './LargeButton';
 
-class Highscore extends React.Component{
-    constructor(){
+class Highscore extends React.Component {
+    constructor() {
         super();
 
         this.state = {
@@ -24,13 +24,13 @@ class Highscore extends React.Component{
         this.showMessageBox = this.showMessageBox.bind(this);
     }
 
-    closeMessageBox(){
+    closeMessageBox() {
         this.setState({
             showBox: false,
         });        
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // update page state in App component
         this.props.pageHandler('gamescores');
 
@@ -38,15 +38,15 @@ class Highscore extends React.Component{
         // const pastGames = this.props.pastGames;
 
         // retrieve previous game state from local storage if present
-        if(localStorage.getItem('savedState')){
+        if (localStorage.getItem('savedState')) {
             const pastGames = JSON.parse(localStorage.getItem('savedState')).pastGames;
 
             // if something stored in local memory
-            if(pastGames && pastGames.length > 0){
+            if (pastGames && pastGames.length > 0) {
                 // finds longest winning streak
                 let maxStreak = pastGames[0].gameStreak;
-                for (let i = 1; i < pastGames.length; i++){
-                    if (pastGames[i].gameStreak > maxStreak){
+                for (let i = 1; i < pastGames.length; i++) {
+                    if (pastGames[i].gameStreak > maxStreak) {
                         maxStreak = pastGames[i].gameStreak;
                     }
                 }
@@ -54,8 +54,8 @@ class Highscore extends React.Component{
     
                 // find how many games won
                 let gamesWon = 0;
-                for(let i = 0; i < pastGames.length; i++){
-                    if(pastGames[i].userWon){
+                for (let i = 0; i < pastGames.length; i++) {
+                    if (pastGames[i].userWon) {
                         gamesWon++;
                     }
                 }
@@ -71,14 +71,14 @@ class Highscore extends React.Component{
         }
     }
 
-    resetGameHistory(event){
+    resetGameHistory(event) {
         // Keep current game setting but remove past game history
         // import current game data from local storage
         let localState = JSON.parse(localStorage.getItem('savedState'));
         // remove past game history and reset game counter
-        if(localState.gameOver){
+        if (localState.gameOver) {
             localState.gameNum = 0;
-        }else{
+        } else {
             localState.gameNum = 1;
         }
         localState.pastGames = [];
@@ -95,17 +95,17 @@ class Highscore extends React.Component{
         });
     }
 
-    showMessageBox(){
+    showMessageBox() {
         this.setState({
             showBox: true,
         });
     }
 
-    render(){
+    render() {
 
         // disable reset button when game history is empty
         let btnHide = 'disabled-btn';
-        if(this.state.pastGames.length > 0){
+        if (this.state.pastGames.length > 0) {
             btnHide = '';
         }
 
@@ -119,7 +119,7 @@ class Highscore extends React.Component{
             </div>
         );
 
-        return(
+        return (
             <div>
                 <Helmet>
                     <title>Snowman | Scores</title>

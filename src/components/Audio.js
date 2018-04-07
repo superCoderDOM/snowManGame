@@ -9,9 +9,9 @@ import React from 'react';
 // Only limited styling possible with default media player
 // Obviously, a custom JavaScript player will be the way to go on a go forward basis
 
-class Audio extends React.Component{
-    render(){
-        return(
+class Audio extends React.Component {
+    render() {
+        return (
             <div className="media-player">
                 <h3 className="snowWhite"><a href="http://www.twinmusicom.org/song/308/winter-ride" target="_blank" rel="noopener noreferrer"> Winter Ride by Twin Musicom </a></h3>
                 <audio controls loop preload="false">

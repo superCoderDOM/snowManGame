@@ -9,6 +9,7 @@ import Head from './Head';
 import BodyTop from './BodyTop';
 import BodyBottom from './BodyBottom';
 import MessageBox from './MsgBox';
+import InputForMobile from './InputForMobile';
 import GameStartButton from './LargeButton';
 
 const   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
@@ -40,10 +41,11 @@ const   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
                     'snowflake', 'ice', 'freeze', 'freezing', 'festive', 'chilly', 'peppermint', 'icicle', 'snowdrift', 'ringuette', 'shinny',
                     'snowangel', 'snowstorm', 'yule', 'yuletide', 'carols', 'christmas', 'hanukkah', 'kwanzaa', 'newyears', 'snowshoes', 'igloo']},
         ];
+
 let endMessageJSX, pastGuessesJSX;
 
 class Snowman extends Component {
-    constructor(){
+    constructor() {
         super();
 
         this.state = {
@@ -71,7 +73,7 @@ class Snowman extends Component {
     }
 
     // checks if the game is over
-    checkGameOver(){
+    checkGameOver() {
 
         const currentWord = this.state.currentWord.split("");
         let pastGuesses = this.state.pastGuesses,
@@ -79,9 +81,9 @@ class Snowman extends Component {
             nRight = 0;
 
         // for each letter in the target word
-        for(let i = 0; i < currentWord.length; i++) {
+        for (let i = 0; i < currentWord.length; i++) {
             // check if it present in the current list of guesses 
-            if(pastGuesses.indexOf(currentWord[i]) >= 0) {
+            if (pastGuesses.indexOf(currentWord[i]) >= 0) {
                 // and count the letters that have been found
                 nRight++;
             }
@@ -103,25 +105,24 @@ class Snowman extends Component {
         }
     }
 
-    componentWillMount(){
+    componentWillMount() {
         // update page state in App component
         this.props.pageHandler('snowman');
         // retrieve previous game state from local storage if present
         const savedState = JSON.parse(localStorage.getItem("savedState"));
-        if(savedState){
+        if (savedState) {
             // return state to saved values if values are present
             this.setState(savedState);
           // if this is not the first game, add 'keypress' event listener
-            if (!savedState.gameOver && savedState.gameNum > 0){
+            if (!savedState.gameOver && savedState.gameNum > 0) {
                 document.addEventListener("keypress", this.evaluateGuess);
-            }
-            else if(savedState.gameOver){
+            } else if (savedState.gameOver) {
                 document.addEventListener("keypress", this.setUpGame);                
             }
         }
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         // remove 'keypress' event listener
         document.removeEventListener("keypress", this.evaluateGuess);
 
@@ -131,7 +132,7 @@ class Snowman extends Component {
     }
        
     // after game ends, save game results
-    endGame(gameResults){
+    endGame(gameResults) {
 
         const newGameStatistics = {
             gameID: this.state.gameID,
@@ -193,15 +194,15 @@ class Snowman extends Component {
                 });
                 this.checkGameOver();
             // highlight duplicate guess
-            }else{
+            } else {
                 let pastGuessListJSX = [];
-                for(let i = 0; i < pastGuesses.length; i++){
-                    if(pastGuesses[i] === guess){
+                for (let i = 0; i < pastGuesses.length; i++) {
+                    if (pastGuesses[i] === guess) {
                         pastGuessListJSX.push(<span key={ pastGuessListJSX.length } className="highlight">{ pastGuesses[i] }</span>);
-                    }else{
+                    } else {
                         pastGuessListJSX.push(<span key={ pastGuessListJSX.length } className="snowWhite">{ pastGuesses[i] }</span>);
                     }
-                    if(i < pastGuesses.length - 1){
+                    if (i < pastGuesses.length - 1) {
                         pastGuessListJSX.push(<span key={pastGuessListJSX.length} className="snowWhite">, </span>);
                     }
                 }
@@ -220,25 +221,23 @@ class Snowman extends Component {
         const pastGuesses = this.state.pastGuesses;
         let hintString = "";
         // for each letter in the target word
-        for(let i = 0; i < currentWord.length; i++){
+        for (let i = 0; i < currentWord.length; i++) {
             let found = false;
             // loop through the pastGuesses
-            for(let j = 0; j < pastGuesses.length; j++){
+            for (let j = 0; j < pastGuesses.length; j++) {
                 // and check each element of past guesses to see if it matches the letter
-                if(currentWord[i] === pastGuesses[j]){
+                if (currentWord[i] === pastGuesses[j]) {
                     found = true;
                 }
             }
             // display first letter of word as upper case
-            if(found && i === 0){
+            if (found && i === 0) {
                 hintString += currentWord[i].toUpperCase();
                 hintString += " ";                
-            }
-            else if(found){
+            } else if (found) {
                 hintString += currentWord[i];
                 hintString += " ";
-            }
-            else{
+            } else {
                 hintString += "_ ";
             }
         }
@@ -247,7 +246,7 @@ class Snowman extends Component {
 
     // creates a random string of characters to use as unique game ID
     // based on a code snippet from from http://jsfiddle.net/wSQBx/2/
-    randomString(length, type){
+    randomString(length, type) {
         let characterSet = '';
     
         // Includes the requested sets of characters
@@ -258,14 +257,14 @@ class Snowman extends Component {
     
         // creates a random key
         let result = '';
-        for (let i = length; i > 0; i--){
+        for (let i = length; i > 0; i--) {
             result += characterSet[Math.floor(Math.random() * characterSet.length)];
         }
         return result;
     }
         
     // modified - (re)sets parameters before starting a new game
-    setUpGame(){
+    setUpGame() {
         // choose a new topic/word pair
         const topicIndex = Math.floor(Math.random() * wordLists.length);
         const wordIndex = Math.floor(Math.random() * wordLists[topicIndex].words.length)
@@ -292,35 +291,38 @@ class Snowman extends Component {
         
         // add game 'keypress' event listener to capture new guesses
         document.addEventListener("keypress", this.evaluateGuess);
+
+        // bring focus to hidden input field to force keyboard to show on mobile
+        document.getElementById("inputForMobile").focus();
     }
 
-    render(){
+    render() {
 
         // show letters found, underscore otherwise
         const hintString = this.printGameState();
 
         // disable 'start new game' button during play
         let btnHide = '';
-        if(!this.state.gameOver){
+        if (!this.state.gameOver) {
             btnHide = 'disabled-btn';
         }
 
         // toggle display of game ending message
         let showBox = false;
-        if(this.state.gameOver && this.state.pastGames.length > 0){
+        if (this.state.gameOver && this.state.pastGames.length > 0) {
             const messageJSX = {
                 youWon: <div><h2>You WIN!</h2> Well done! </div>,
                 youLost: <div><h2> GAME OVER! </h2> The word was: <span className="snowWhite">{ this.state.currentWord.charAt(0).toUpperCase() + this.state.currentWord.slice(1) }</span><br/> Better luck next time! </div>,
             };
-            if(this.state.gameWon){
+            if (this.state.gameWon) {
                 endMessageJSX = messageJSX.youWon;
-            }else{
+            } else {
                 endMessageJSX = messageJSX.youLost;
             }
             showBox = true;
         }
 
-        return(
+        return (
             <div className="container">
                 <Helmet>
                     <title>Snowman | Play</title>
@@ -344,6 +346,7 @@ class Snowman extends Component {
                             <h2> Current guess: <span className="snowWhite">{ this.state.userGuess }</span> </h2>
                             <h2> Previous guesses: </h2>
                             { pastGuessesJSX }
+                            <InputForMobile />
                         </div>
                     </div>
                     <Audio />

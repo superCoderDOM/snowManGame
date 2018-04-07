@@ -1,19 +1,19 @@
 import React from 'react';
 
-class MsgBox extends React.Component{
-    render(){
+class MsgBox extends React.Component {
+    render() {
 
         let classList = "center msg-box";
-        if(this.props.showBox){
+        if (this.props.showBox) {
             classList += " msg-box__animate";
-        }else{
+        } else {
             classList += " hidden";
         }
-        if(this.props.className){
+        if (this.props.className) {
             classList += " " + this.props.className;
         }
 
-        return(
+        return (
             <div className={ classList } onClick={ this.props.boxHandler } onKeyPress={ this.props.boxHandler }>
                 { this.props.messageJSX }
                 { this.props.children }

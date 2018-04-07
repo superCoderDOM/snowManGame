@@ -1,14 +1,14 @@
 import React from 'react';
 
-class GameResults extends React.Component{
-    render(){
+class GameResults extends React.Component {
+    render() {
 
         let pastGamesJSX = this.props.pastGames.map((game, index)=>{
             let gameResult = 'Player Lost';
-            if(game.userWon){
+            if (game.userWon) {
                 gameResult = 'Player Won';
             }
-            return(
+            return (
                 <tr key={ index }>
                     <td> Game { game.gamesPlayed } </td>
                     <td> { game.gameWord } </td> 
