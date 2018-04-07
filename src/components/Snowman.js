@@ -9,7 +9,7 @@ import Head from './Head';
 import BodyTop from './BodyTop';
 import BodyBottom from './BodyBottom';
 import MessageBox from './MsgBox';
-import InputForMobile from './InputForMobile';
+// import InputForMobile from './InputForMobile';
 import GameStartButton from './LargeButton';
 
 const   alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
@@ -116,8 +116,9 @@ class Snowman extends Component {
           // if this is not the first game, add 'keypress' event listener
             if (!savedState.gameOver && savedState.gameNum > 0) {
                 document.addEventListener("keypress", this.evaluateGuess);
+                document.getElementById("inputForMobile").focus();
             } else if (savedState.gameOver) {
-                document.addEventListener("keypress", this.setUpGame);                
+                document.addEventListener("keypress", this.setUpGame);
             }
         }
     }
@@ -147,6 +148,10 @@ class Snowman extends Component {
         
         // remove game 'keypress' event listener
         document.removeEventListener("keypress", this.evaluateGuess);
+
+        // remove focus and clear input field used for mobile keyboard display
+        document.getElementById("inputForMobile").blur();
+        document.getElementById("inputForMobile").value = '';
 
         // add message box 'keypress' event listener
         document.addEventListener("keypress", this.setUpGame);
@@ -346,7 +351,8 @@ class Snowman extends Component {
                             <h2> Current guess: <span className="snowWhite">{ this.state.userGuess }</span> </h2>
                             <h2> Previous guesses: </h2>
                             { pastGuessesJSX }
-                            <InputForMobile />
+                            <input type='text' id='inputForMobile' className='hidden'/>
+                            {/* <InputForMobile /> */}
                         </div>
                     </div>
                     <Audio />
