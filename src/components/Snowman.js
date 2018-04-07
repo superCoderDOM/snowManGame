@@ -105,6 +105,12 @@ class Snowman extends Component {
         }
     }
 
+    componentDidMount() {
+        if (!this.state.gameOver && this.state.gameNum > 0) {
+            document.getElementById("inputForMobile").focus();
+        }
+    }
+
     componentWillMount() {
         // update page state in App component
         this.props.pageHandler('snowman');
@@ -116,7 +122,6 @@ class Snowman extends Component {
           // if this is not the first game, add 'keypress' event listener
             if (!savedState.gameOver && savedState.gameNum > 0) {
                 document.addEventListener("keypress", this.evaluateGuess);
-                document.getElementById("inputForMobile").focus();
             } else if (savedState.gameOver) {
                 document.addEventListener("keypress", this.setUpGame);
             }
